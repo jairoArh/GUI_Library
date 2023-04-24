@@ -14,7 +14,7 @@ public class HandlingBooks {
 
     public HandlingBooks() {
         authors = new Author[6];
-        getAuthors();
+        load();
         position = 0;
         books = new Book[10];
     }
@@ -50,7 +50,7 @@ public class HandlingBooks {
         return null;
     }
 
-    private void getAuthors() {
+    private void load() {
         int cont = 0;
         try (FileReader file = new FileReader(new File("resources/files/auth.csv"))) {
             BufferedReader input = new BufferedReader( file );
@@ -82,5 +82,8 @@ public class HandlingBooks {
         }
     }
 
+    public Author[] getAuthors(){
 
+        return authors.clone();
+    }
 }
