@@ -24,6 +24,8 @@ public class PanelCenter extends JPanel {
 
     private String[][] authors;
 
+    private SpinnerNumberModel spinnerNumberModel;
+
     public PanelCenter(MainWindow mainWindow, String[][] authors) {
         this.mainWindow = mainWindow;
         this.authors = authors;
@@ -62,7 +64,7 @@ public class PanelCenter extends JPanel {
 
         author = new JComboBox<>( names );
 
-        SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(50,10,2000,1);
+        spinnerNumberModel = new SpinnerNumberModel(50,10,2000,1);
         pages = new JSpinner( spinnerNumberModel );
 
         dateRelease = new JDateChooser( );
@@ -92,4 +94,26 @@ public class PanelCenter extends JPanel {
 
         return aux;
     }
+
+    public void setId(String id){
+        txtId.setText( id );
+    }
+
+    public void setTxtTitle(String title ){
+        txtTitle.setText( title );
+    }
+
+    public void setPages( int pages ){
+        spinnerNumberModel.setValue( pages );
+    }
+
+    public void setAuthor( String author ){
+
+    }
+
+    public void setDateRelease( String date ){
+
+        dateRelease.setDate( new Date( date ) );
+    }
+
 }

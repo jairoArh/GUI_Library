@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
@@ -62,7 +64,48 @@ public class MainWindow extends JFrame  {
 
         String release = panelCenter.getRelease();
 
-        System.out.println( controllBook.addBook( Integer.parseInt( id),title,Short.parseShort(pages),release,author));
+        if( controllBook.addBook( Integer.parseInt( id ),title,Short.parseShort(pages),release,author) ){
+            JOptionPane.showMessageDialog( null, "Se agrego con exito");
+            cleanFields();
+        }else{
+            JOptionPane.showMessageDialog( null, "ID ya Registrado");
+        }
+
+    }
+
+    public void findByIdBook(){
+        String id = panelCenter.getId();
+
+        if( id.length() > 0 ){
+            int numId = Integer.parseInt( id );
+
+            String[ ] book = controllBook.findBookById( numId );
+
+            if( book != null ){
+                panelCenter.setTxtTitle( book[1] + "-" + book[4]);
+                panelCenter.setPages( Integer.parseInt( book[2]));
+            }else{
+                JOptionPane.showMessageDialog(null,"El Libro no Existe");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Debe especificar el ID");
+        }
+    }
+
+    public void cleanFields(){
+        panelCenter.setId("");
+
+        panelCenter.setTxtTitle("");
+
+        panelCenter.setPages( 50 );
+
+        System.out.println( LocalDate.now().toString());
+
+        LocalDate dateNow = LocalDate.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+
+        panelCenter.setDateRelease( formatter.format( dateNow).toString());
 
     }
 }
